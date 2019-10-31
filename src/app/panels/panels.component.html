@@ -1,0 +1,35 @@
+<p-panel header="ID Token (raw)" [toggleable]="true" *ngIf="idToken" [style]="{margin: '1em'}">
+	<pre>
+        <code class="language-json" pCode>
+        {{'{'}}
+            "id_token": "{{idToken}}"
+        {{'}'}}
+        </code>
+    </pre>
+</p-panel>
+
+<p-panel header="Access Token" [toggleable]="true" *ngIf="accessToken" [style]="{margin: '1em'}">
+	<pre>
+        <code class="language-json" pCode>
+            {{'{'}}
+                "access_token": "{{accessToken}}"
+            {{'}'}}
+        </code>
+    </pre>
+</p-panel>
+
+<p-panel header="ID Token (parsed)" [toggleable]="true" *ngIf="user" [style]="{margin: '1em'}" [collapsed]="true">
+	<pre>
+        <code class="language-json" pCode>
+            {{user}}
+        </code>
+    </pre>
+</p-panel>
+
+<p-panel header="Browser Cache" [toggleable]="true" *ngIf="cache" [style]="{margin: '1em'}" [collapsed]="true">
+	<pre>
+        <code class="language-json" pCode>
+                {{cache}}
+        </code>
+    </pre>
+</p-panel>

@@ -1,0 +1,14 @@
+<p-dialog header="Settings" [(visible)]="isSettings" modal="true" dismissableMask="true" [responsive]="false"
+	[draggable]="false" (onHide)="setSettingCookies()">
+	<span class="ui-float-label">
+		<input id="domain-input" type="text" pInputText [(ngModel)]="settings.domain">
+		<label for="domain-input">Domain</label>
+	</span>
+	<span class="ui-float-label">
+		<input id="client-input" type="text" pInputText [(ngModel)]="settings.clientId">
+		<label for="client-input">Client ID</label>
+	</span>
+</p-dialog>
+
+<button type="button" (click)="isSettings = !isSettings" pButton icon="pi pi-cog" pTooltip="Settings"
+	tooltipPosition="bottom"></button>
