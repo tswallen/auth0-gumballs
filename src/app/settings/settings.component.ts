@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SETTINGS } from './settings';
+import { AuthenticationService } from '../authentication/authentication.service';
 
 @Component({
 	selector: 'app-settings',
@@ -9,10 +10,11 @@ import { SETTINGS } from './settings';
 export class SettingsComponent implements OnInit {
 	isSettings: boolean;
 
-	constructor(public settings: SETTINGS) { }
+	constructor(public settings: SETTINGS, private authenticationService: AuthenticationService) { }
 
 	ngOnInit() {
 		this.getSettingCookies();
+		this.authenticationService.handleRedirectCallback();
 	}
 
 	/**

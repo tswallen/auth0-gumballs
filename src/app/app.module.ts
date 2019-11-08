@@ -16,11 +16,12 @@ import { PanelModule } from 'primeng/panel';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import 'prismjs/components/prism-json.js';
 
-import { SettingsComponent } from './settings/settings.component';
-
 import { SETTINGS } from './settings/settings';
+
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SettingsComponent } from './settings/settings.component';
 import { PanelsComponent } from './panels/panels.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
 	declarations: [
@@ -30,6 +31,7 @@ import { PanelsComponent } from './panels/panels.component';
 		PanelsComponent
 	],
 	imports: [
+		AppRoutingModule,
 		BrowserModule,
 		BrowserAnimationsModule,
 		FormsModule,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { SETTINGS } from '../settings/settings';
 import createAuth0Client from '@auth0/auth0-spa-js';
+import { Router } from '@angular/router';
 
 @Injectable({
 	providedIn: 'root'
@@ -10,12 +11,15 @@ export class AuthenticationService {
 	client: Auth0Client;
 	isAuthenticated: boolean;
 
-	constructor(public settings: SETTINGS) { }
+	constructor(public settings: SETTINGS, private router: Router) { }
 
 	/**
 	 * Creates the Auth0Client
 	 */
 	async setClient() {
+		if (this.client) {
+			return;
+		}
 		await createAuth0Client({
 			domain: this.settings.domain,
 			client_id: this.settings.clientId,
@@ -27,11 +31,22 @@ export class AuthenticationService {
 	 * Initiates login after checking the client is set
 	 */
 	async login() {
-		if (!this.client) {
-			await this.setClient();
+		await this.setClient();
+		return this.client.loginWithRedirect();
+	}
+
+	/**
+	 * Interprets callback URL parameters and returns to homepage
+	 */
+	async handleRedirectCallback() {
+		const params = window.location.search;
+		if (!params.includes('code=') && !params.includes('state=')) {
+			return;
 		}
-		return this.client.loginWithPopup()
-			.then(async () => this.isAuthenticated = await this.client.isAuthenticated());
+		await this.setClient();
+		await this.client.handleRedirectCallback();
+		this.isAuthenticated = await this.client.isAuthenticated();
+		this.router.navigate(['/']);
 	}
 
 	/**
