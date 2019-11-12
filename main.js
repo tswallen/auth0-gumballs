@@ -11,6 +11,7 @@ function createWindow() {
 		icon: `file://${__dirname}/dist/auth0-gumballs/favicon.ico`
 	})
 
+
 	win.loadURL(`file://${__dirname}/dist/auth0-gumballs/index.html`)
 
 	//// uncomment below to open the DevTools.
@@ -20,13 +21,6 @@ function createWindow() {
 	win.on('closed', function () {
 		win = null
 	})
-
-	const { session: { webRequest } } = win.webContents;
-
-	webRequest.onBeforeRequest({ urls: ['file:///callback*'] }, (details, callback) => {
-		const url = details.url;
-		callback({ redirectUrl: `file://${__dirname}/dist/auth0-gumballs/index.html/#/callback${url.slice(url.indexOf('?'))}` })
-	});
 }
 
 // Create window on electron intialization
