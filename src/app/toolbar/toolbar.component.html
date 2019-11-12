@@ -1,8 +1,9 @@
 <p-toolbar>
 	<div class="ui-toolbar-group-left">
-		<button pButton type="button" label="Login" icon="pi pi-sign-in" (click)="login()"
+		<p-splitButton label="Login" icon="pi pi-sign-in" (onClick)="login(true)" [model]="loginOptions"
 			[(disabled)]="!settings.domain || !settings.clientId" pTooltip="Calls /authorize"
-			*ngIf="!authenticationService.isAuthenticated" tooltipPosition="bottom"></button>
+			*ngIf="!authenticationService.isAuthenticated" tooltipPosition="bottom"></p-splitButton>
+
 		<button pButton type="button" label="Logout" icon="pi pi-sign-out" (click)="logout()"
 			pTooltip="Calls /v2/logout" *ngIf="authenticationService.isAuthenticated" tooltipPosition="bottom"></button>
 	</div>

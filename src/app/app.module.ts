@@ -10,6 +10,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelModule } from 'primeng/panel';
@@ -40,6 +41,7 @@ import { AppRoutingModule } from './app-routing.module';
 		ToolbarModule,
 		DialogModule,
 		InputTextModule,
+		SplitButtonModule,
 		ButtonModule,
 		TooltipModule,
 		PanelModule,

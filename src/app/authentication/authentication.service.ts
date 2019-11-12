@@ -30,9 +30,13 @@ export class AuthenticationService {
 	/**
 	 * Initiates login after checking the client is set
 	 */
-	async login() {
+	async login(popup: boolean) {
 		await this.setClient();
-		return this.client.loginWithRedirect();
+		if (!popup) {
+			return this.client.loginWithRedirect();
+		}
+		return this.client.loginWithPopup()
+			.then(async () => this.isAuthenticated = await this.client.isAuthenticated());
 	}
 
 	/**
