@@ -3,6 +3,7 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { SETTINGS } from '../settings/settings';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Injectable({
 	providedIn: 'root'
@@ -11,7 +12,7 @@ export class AuthenticationService {
 	client: Auth0Client;
 	isAuthenticated: boolean;
 
-	constructor(public settings: SETTINGS, private router: Router) { }
+	constructor(public settings: SETTINGS, private router: Router, private messageService: MessageService) { }
 
 	/**
 	 * Creates the Auth0Client
@@ -28,15 +29,23 @@ export class AuthenticationService {
 	}
 
 	/**
-	 * Initiates login after checking the client is set
+	 * Initiates login with popup after checking the client is set
 	 */
-	async login(popup: boolean) {
+	async loginWithPopup() {
 		await this.setClient();
-		if (!popup) {
-			return this.client.loginWithRedirect();
-		}
 		return this.client.loginWithPopup()
-			.then(async () => this.isAuthenticated = await this.client.isAuthenticated());
+			.catch(error => this.error('loginWithPopup', error))
+			.then(async () => this.isAuthenticated = await this.client.isAuthenticated())
+			.finally(() => this.success('Logged in successfully'));
+	}
+
+	/**
+	 * Initiates login with redirect after checking the client is set
+	 */
+	async loginWithRedirect() {
+		await this.setClient();
+		return this.client.loginWithRedirect()
+			.catch(error => this.error('loginWithRedirect', error));
 	}
 
 	/**
@@ -50,7 +59,8 @@ export class AuthenticationService {
 		await this.setClient();
 		await this.client.handleRedirectCallback();
 		this.isAuthenticated = await this.client.isAuthenticated();
-		this.router.navigate(['/']);
+		this.router.navigate(['/'])
+			.finally(() => this.success('Logged in successfully'));
 	}
 
 	/**
@@ -87,5 +97,34 @@ export class AuthenticationService {
 	 */
 	getCache(): {} {
 		return Object.values(this.client['cache']['cache'])[0];
+	}
+
+	/**
+	 * Shows a success message
+	 * @param message the success message to log
+	 */
+	private success(message: string) {
+		this.messageService.add(
+			{
+				severity: 'success',
+				detail: message
+			}
+		);
+	}
+
+	/**
+	 * Shows an error message
+	 * @param operation the operation that failed
+	 * @param message the error message provided
+	 */
+	private error(operation = 'operation', message: string) {
+		console.error(message);
+		this.messageService.add(
+			{
+				severity: 'error',
+				summary: `${operation} failed`,
+				detail: message
+			}
+		);
 	}
 }

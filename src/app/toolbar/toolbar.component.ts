@@ -12,23 +12,30 @@ export class ToolbarComponent {
 	loginOptions = [
 		{
 			label: 'Login with redirect',
-			icon: 'pi pi-sign-in',
-			command: () => { this.login(false); }
+			icon: 'pi pi-refresh',
+			command: () => { this.loginWithRedirect(); }
 		},
 		{
 			label: 'Login with popup',
-			icon: 'pi pi-sign-in',
-			command: () => { this.login(true); }
+			icon: 'pi pi-external-link',
+			command: () => { this.loginWithPopup(); }
 		}
 	];
 
 	constructor(public settings: SETTINGS, public authenticationService: AuthenticationService) { }
 
 	/**
-	 * Runs the login
+	 * Runs the login with popup
 	 */
-	login(popup: boolean): void {
-		this.authenticationService.login(popup);
+	loginWithPopup(): void {
+		this.authenticationService.loginWithPopup();
+	}
+
+	/**
+	 * Runs the login with redirect
+	 */
+	loginWithRedirect(): void {
+		this.authenticationService.loginWithRedirect();
 	}
 
 	/**

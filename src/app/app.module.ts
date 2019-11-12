@@ -23,6 +23,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PanelsComponent } from './panels/panels.component';
 import { AppRoutingModule } from './app-routing.module';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @NgModule({
 	declarations: [
@@ -48,7 +49,8 @@ import { AppRoutingModule } from './app-routing.module';
 		CodeHighlighterModule
 	],
 	providers: [
-		SETTINGS
+		SETTINGS,
+		MessageService
 	],
 	bootstrap: [AppComponent]
 })
