@@ -8,6 +8,7 @@ import { MessageService } from 'primeng/components/common/messageservice';
 @Injectable({
 	providedIn: 'root'
 })
+
 export class AuthenticationService {
 	client: Auth0Client;
 	isAuthenticated: boolean;
@@ -122,8 +123,8 @@ export class AuthenticationService {
 		this.messageService.add(
 			{
 				severity: 'error',
-				summary: `${operation} failed`,
-				detail: message
+				summary: `Error: ${message['error']}` || `${operation} failed`,
+				detail: `Description: ${message['error_description'].replace(/(.{100})..+/, '$1…')}` || 'Please see the console for more information'
 			}
 		);
 	}
