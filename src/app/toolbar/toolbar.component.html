@@ -6,6 +6,8 @@
 
 		<button pButton type="button" label="Logout" icon="pi pi-sign-out" (click)="logout()"
 			pTooltip="Calls /v2/logout" *ngIf="authenticationService.isAuthenticated" tooltipPosition="bottom"></button>
+
+		<app-cloner></app-cloner>
 	</div>
 	<div class="ui-toolbar-group-right">
 		<app-settings></app-settings>

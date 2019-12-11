@@ -24,13 +24,16 @@ import { SettingsComponent } from './settings/settings.component';
 import { PanelsComponent } from './panels/panels.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { ClonerComponent } from './cloner/cloner.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 		SettingsComponent,
 		ToolbarComponent,
-		PanelsComponent
+		PanelsComponent,
+		ClonerComponent
 	],
 	imports: [
 		AppRoutingModule,
@@ -46,7 +49,8 @@ import { MessageService } from 'primeng/components/common/messageservice';
 		ButtonModule,
 		TooltipModule,
 		PanelModule,
-		CodeHighlighterModule
+		CodeHighlighterModule,
+		HttpClientModule
 	],
 	providers: [
 		SETTINGS,

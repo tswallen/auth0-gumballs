@@ -27,6 +27,7 @@ export class SettingsComponent implements OnInit {
 		}
 		this.settings.clientId = JSON.parse(cookie)['clientId'];
 		this.settings.domain = JSON.parse(cookie)['domain'];
+		this.settings.managementToken = JSON.parse(cookie)['managementToken'];
 	}
 
 	/**

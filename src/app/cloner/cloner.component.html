@@ -1,0 +1,16 @@
+<p-dialog header="Clone" [(visible)]="isCloner" modal="true" dismissableMask="true" [responsive]="false"
+	[draggable]="false" (onShow)="onShow()">
+	<span class="ui-float-label">
+		<input id="domain-input" type="text" pInputText [(ngModel)]="toClone.domain">
+		<label for="domain-input">Domain to clone from</label>
+	</span>
+	<span class="ui-float-label">
+		<input id="client-input" type="text" pInputText [(ngModel)]="toClone.clientId">
+		<label for="client-input">Client ID to clone</label>
+	</span>
+	<button type="button" (click)="clone()" pButton label="Clone"
+		[(disabled)]="!toClone.domain || !toClone.clientId"></button>
+</p-dialog>
+
+<button type="button" (click)="isCloner = !isCloner" pButton icon="pi pi-copy" pTooltip="Clone an application"
+	tooltipPosition="bottom" label="Clone" [(disabled)]="!settings.managementToken || !settings.domain"></button>
