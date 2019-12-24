@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import js_beautify from 'js-beautify';
+import ClipboardJS from 'clipboard';
+import { MessageService } from 'primeng/components/common/messageservice';
 
 @Component({
 	selector: 'app-panels',
@@ -13,8 +15,19 @@ export class PanelsComponent implements OnInit {
 	idToken: string;
 	isServer: boolean;
 	cache: string;
+	clipboard = new ClipboardJS('.copy');
 
-	constructor(private authenticationService: AuthenticationService) { }
+	constructor(private authenticationService: AuthenticationService, private messageService: MessageService) {
+		this.clipboard.on('success', event => {
+			this.messageService.add(
+				{
+					severity: 'success',
+					detail: 'Copied to clipboard'
+				}
+			);
+			event.clearSelection();
+		});
+	}
 
 	ngOnInit() {
 		this.getIdToken();

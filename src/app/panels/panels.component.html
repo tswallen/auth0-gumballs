@@ -5,7 +5,13 @@
             "id_token": "{{idToken}}"
         {{'}'}}
         </code>
-    </pre>
+	</pre>
+	<p-footer>
+		<div class="ui-helper-clearfix">
+			<input id="id-token" value="{{idToken}}" style="opacity: 0; cursor: default;" readonly>
+			<button style="float: right;" type="button" pButton icon="pi pi-copy" class="copy" data-clipboard-target="#id-token" pTooltip="Copy to clipboard"></button>
+		</div>
+	</p-footer>
 </p-panel>
 
 <p-panel header="Access Token" [toggleable]="true" *ngIf="accessToken" [style]="{margin: '1em'}">
@@ -15,7 +21,13 @@
                 "access_token": "{{accessToken}}"
             {{'}'}}
         </code>
-    </pre>
+	</pre>
+	<p-footer>
+		<div class="ui-helper-clearfix">
+			<input id="access-token" value="{{accessToken}}" style="opacity: 0; cursor: default;" readonly>
+			<button style="float: right;" type="button" pButton icon="pi pi-copy" class="copy" data-clipboard-target="#access-token" pTooltip="Copy to clipboard"></button>
+		</div>
+	</p-footer>
 </p-panel>
 
 <p-panel header="ID Token (parsed)" [toggleable]="true" *ngIf="user" [style]="{margin: '1em'}" [collapsed]="true">
