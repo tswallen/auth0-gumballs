@@ -39,6 +39,13 @@ export class ToolbarComponent {
 	}
 
 	/**
+	 * Authenticates silently
+	 */
+	loginSilently(): void {
+		this.authenticationService.loginSilently();
+	}
+
+	/**
 	 * Runs the logout
 	 */
 	logout(): void {

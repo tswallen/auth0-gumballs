@@ -50,6 +50,17 @@ export class AuthenticationService {
 	}
 
 	/**
+	 * Runs silent authentication
+	 */
+	async loginSilently() {
+		await this.setClient();
+		return this.client.getTokenSilently()
+			.catch(error => this.error('loginSilently', error))
+			.then(async () => this.isAuthenticated = await this.client.isAuthenticated())
+			.finally(() => this.success('Logged in successfully'));
+	}
+
+	/**
 	 * Interprets callback URL parameters and returns to homepage
 	 */
 	async handleRedirectCallback() {
