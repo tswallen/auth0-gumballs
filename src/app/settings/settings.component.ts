@@ -9,6 +9,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
 })
 export class SettingsComponent implements OnInit {
 	isSettings: boolean;
+	applications: { name: string, client_id: string }[];
+	application: { name: string, client_id: string };
 
 	constructor(public settings: SETTINGS, private authenticationService: AuthenticationService) { }
 
@@ -38,4 +40,24 @@ export class SettingsComponent implements OnInit {
 		document.cookie = `settings=${JSON.stringify(this.settings)}`;
 	}
 
+	/**
+	 * Gets a list of applications
+	 */
+	getApplications(): void {
+		if (this.applications || !this.settings.managementToken) {
+			return;
+		}
+		this.authenticationService.getApplications()
+			.then(applications => {
+				this.applications = applications;
+				this.resolveApplication();
+			});
+	}
+
+	/**
+	 * Determines the current application object based on it's client_id
+	 */
+	private resolveApplication() {
+		this.application = this.applications.find(application => application.client_id === this.settings.clientId);
+	}
 }

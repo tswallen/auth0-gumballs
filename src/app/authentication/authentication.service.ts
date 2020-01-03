@@ -4,6 +4,7 @@ import { SETTINGS } from '../settings/settings';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/components/common/messageservice';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
 	providedIn: 'root'
@@ -13,13 +14,17 @@ export class AuthenticationService {
 	client: Auth0Client;
 	isAuthenticated: boolean;
 
-	constructor(public settings: SETTINGS, private router: Router, private messageService: MessageService) { }
+	httpOptions = {
+		headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+	};
+
+	constructor(public settings: SETTINGS, private router: Router, private http: HttpClient, private messageService: MessageService) { }
 
 	/**
 	 * Creates the Auth0Client
 	 */
 	async setClient() {
-		if (this.client) {
+		if (this.client && this.client['options'].client_id === this.settings.clientId) {
 			return;
 		}
 		await createAuth0Client({
@@ -27,6 +32,15 @@ export class AuthenticationService {
 			client_id: this.settings.clientId,
 			redirect_uri: `${window.location.origin}/callback`
 		}).then(client => this.client = client);
+	}
+
+	/**
+	 * Gets existing application configuration
+	 * @param application the application to be cloned
+	 */
+	getApplications(): Promise<any> {
+		this.httpOptions.headers = this.httpOptions.headers.append('Authorization', `Bearer ${this.settings.managementToken}`);
+		return this.http.get(`https://${this.settings.domain}/api/v2/clients?fields=name%2Cclient_id`, this.httpOptions).toPromise();
 	}
 
 	/**

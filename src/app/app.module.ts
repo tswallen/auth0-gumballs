@@ -14,6 +14,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
 import { CodeHighlighterModule } from 'primeng/codehighlighter';
 import 'prismjs/components/prism-json.js';
 
@@ -50,7 +51,8 @@ import { HttpClientModule } from '@angular/common/http';
 		TooltipModule,
 		PanelModule,
 		CodeHighlighterModule,
-		HttpClientModule
+		HttpClientModule,
+		DropdownModule
 	],
 	providers: [
 		SETTINGS,

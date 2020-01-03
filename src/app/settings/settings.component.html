@@ -1,15 +1,20 @@
 <p-dialog header="Settings" [(visible)]="isSettings" modal="true" dismissableMask="true" [responsive]="false"
-	[draggable]="false" (onHide)="setSettingCookies()">
+	[draggable]="false" (onHide)="setSettingCookies()" (onShow)="getApplications()">
 	<span class="ui-float-label">
-		<input id="client-input" type="text" pInputText [(ngModel)]="settings.managementToken">
-		<label for="client-input">Management API Token</label>
+		<input id="token-input" type="text" pInputText [(ngModel)]="settings.managementToken"
+			(blur)="getApplications()">
+		<label for="token-input">Management API Token</label>
 	</span>
 	<span class="ui-float-label">
 		<input id="domain-input" type="text" pInputText [(ngModel)]="settings.domain">
 		<label for="domain-input">Domain</label>
 	</span>
 	<span class="ui-float-label">
-		<input id="client-input" type="text" pInputText [(ngModel)]="settings.clientId">
+		<input id="client-input" type="text" pInputText [(ngModel)]="settings.clientId"
+			*ngIf="!settings.managementToken">
+		<p-dropdown [options]="applications" (onChange)="settings.clientId = $event.value.client_id"
+			*ngIf="applications && settings.managementToken" optionLabel="name" dataKey="client_id"
+			[(ngModel)]="application"></p-dropdown>
 		<label for="client-input">Client ID</label>
 	</span>
 </p-dialog>
