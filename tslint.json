@@ -1,8 +1,5 @@
 {
 	"extends": "tslint:recommended",
-	"rulesDirectory": [
-		"codelyzer"
-	],
 	"rules": {
 		"align": [
 			true,
@@ -14,31 +11,19 @@
 		"deprecation": {
 			"severity": "warning"
 		},
-		"comment-format": [
-			true,
-			"check-space",
-			"check-uppercase",
-			"allow-trailing-lowercase"
-		],
-		"completed-docs": [
-			true,
-			"enums",
-			"functions",
-			"methods"
-		],
 		"component-class-suffix": true,
 		"contextual-lifecycle": true,
 		"directive-class-suffix": true,
 		"directive-selector": [
 			true,
 			"attribute",
-			"automation",
+			"app",
 			"camelCase"
 		],
 		"component-selector": [
 			true,
 			"element",
-			"automation",
+			"app",
 			"kebab-case"
 		],
 		"import-blacklist": [
@@ -77,7 +62,6 @@
 		"no-non-null-assertion": true,
 		"no-redundant-jsdoc": true,
 		"no-switch-case-fall-through": true,
-		"no-use-before-declare": true,
 		"no-var-requires": false,
 		"object-literal-key-quotes": [
 			true,
@@ -103,5 +87,8 @@
 		"template-no-negated-async": true,
 		"use-lifecycle-interface": true,
 		"use-pipe-transform-interface": true
-	}
+	},
+	"rulesDirectory": [
+		"codelyzer"
+	]
 }

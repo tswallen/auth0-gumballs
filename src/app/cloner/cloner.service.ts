@@ -1,3 +1,4 @@
+/* tslint:disable:no-string-literal */
 import { Injectable } from '@angular/core';
 import { SETTINGS } from '../settings/settings';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -81,7 +82,7 @@ export class ClonerService {
 	 * @param message the error message provided
 	 */
 	private error(operation = 'operation', message: string) {
-		console.error(message);
+		console.error(message); // tslint:disable-line
 		this.messageService.add(
 			{
 				severity: 'error',

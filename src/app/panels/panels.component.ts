@@ -29,7 +29,7 @@ export class PanelsComponent implements OnInit {
 		});
 	}
 
-	ngOnInit() {
+	ngOnInit() { // tslint:disable-line
 		this.getIdToken();
 		this.getUser();
 		this.getCache();

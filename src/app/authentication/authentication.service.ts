@@ -1,3 +1,4 @@
+/* tslint:disable:no-string-literal */
 import { Injectable } from '@angular/core';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { SETTINGS } from '../settings/settings';
@@ -144,7 +145,7 @@ export class AuthenticationService {
 	 * @param message the error message provided
 	 */
 	private error(operation = 'operation', message: string) {
-		console.error(message);
+		console.error(message); // tslint:disable-line
 		this.messageService.add(
 			{
 				severity: 'error',

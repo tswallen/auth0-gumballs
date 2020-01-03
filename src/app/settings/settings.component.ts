@@ -1,3 +1,4 @@
+/* tslint:disable:no-string-literal */
 import { Component, OnInit } from '@angular/core';
 import { SETTINGS } from './settings';
 import { AuthenticationService } from '../authentication/authentication.service';
@@ -14,7 +15,7 @@ export class SettingsComponent implements OnInit {
 
 	constructor(public settings: SETTINGS, private authenticationService: AuthenticationService) { }
 
-	ngOnInit() {
+	ngOnInit() { // tslint:disable-line
 		this.getSettingCookies();
 		this.authenticationService.handleRedirectCallback();
 	}
