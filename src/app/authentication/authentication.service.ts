@@ -41,7 +41,9 @@ export class AuthenticationService {
 	 */
 	getApplications(): Promise<any> {
 		this.httpOptions.headers = this.httpOptions.headers.append('Authorization', `Bearer ${this.settings.managementToken}`);
-		return this.http.get(`https://${this.settings.domain}/api/v2/clients?fields=name%2Cclient_id`, this.httpOptions).toPromise();
+		return this.http.get(`https://${this.settings.domain}/api/v2/clients?fields=name%2Cclient_id`, this.httpOptions).toPromise()
+			.catch(error => this.error('getApplications', error))
+			.finally(() => this.success('Fetched applications'));
 	}
 
 	/**

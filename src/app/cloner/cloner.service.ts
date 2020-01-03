@@ -42,7 +42,8 @@ export class ClonerService {
 	 * @param application the application to be cloned
 	 */
 	private getApplication(application: { domain: string, clientId: string }): Promise<any> {
-		return this.http.get(`https://${application.domain}/api/v2/clients/${application.clientId}`, this.httpOptions).toPromise();
+		return this.http.get(`https://${application.domain}/api/v2/clients/${application.clientId}`, this.httpOptions).toPromise()
+			.catch(error => this.error('getApplication', error));
 	}
 
 	/**
@@ -60,6 +61,7 @@ export class ClonerService {
 		});
 
 		return this.http.post(`https://${this.settings.domain}/api/v2/clients`, newApplication, this.httpOptions).toPromise()
+			.catch(error => this.error('addApplication', error))
 			.finally(() => this.success(`${oldName} cloned successfully`));
 	}
 

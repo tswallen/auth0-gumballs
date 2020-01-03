@@ -1,6 +1,6 @@
 /* tslint:disable:no-string-literal */
 import { Component, OnInit } from '@angular/core';
-import { SETTINGS } from './settings';
+import { SETTINGS, Application } from './settings';
 import { AuthenticationService } from '../authentication/authentication.service';
 
 @Component({
@@ -10,8 +10,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 })
 export class SettingsComponent implements OnInit {
 	isSettings: boolean;
-	applications: { name: string, client_id: string }[];
-	application: { name: string, client_id: string };
+	application: Application;
 
 	constructor(public settings: SETTINGS, private authenticationService: AuthenticationService) { }
 
@@ -45,12 +44,16 @@ export class SettingsComponent implements OnInit {
 	 * Gets a list of applications
 	 */
 	getApplications(): void {
-		if (this.applications || !this.settings.managementToken) {
+		if (this.settings.applications || !this.settings.managementToken) {
 			return;
 		}
 		this.authenticationService.getApplications()
 			.then(applications => {
-				this.applications = applications;
+				this.settings.applications = applications;
+				if (!this.application) {
+					this.application = applications[0];
+					return;
+				}
 				this.resolveApplication();
 			});
 	}
@@ -59,6 +62,7 @@ export class SettingsComponent implements OnInit {
 	 * Determines the current application object based on it's client_id
 	 */
 	private resolveApplication() {
-		this.application = this.applications.find(application => application.client_id === this.settings.clientId);
+		this.application = this.settings.applications
+			.find(application => application.client_id === this.settings.clientId);
 	}
 }

@@ -12,8 +12,8 @@
 	<span class="ui-float-label">
 		<input id="client-input" type="text" pInputText [(ngModel)]="settings.clientId"
 			*ngIf="!settings.managementToken">
-		<p-dropdown [options]="applications" (onChange)="settings.clientId = $event.value.client_id"
-			*ngIf="applications && settings.managementToken" optionLabel="name" dataKey="client_id"
+		<p-dropdown [options]="settings.applications" (onChange)="settings.clientId = $event.value.client_id"
+			*ngIf="settings.applications || settings.managementToken" optionLabel="name" dataKey="client_id"
 			[(ngModel)]="application"></p-dropdown>
 		<label for="client-input">Client ID</label>
 	</span>
